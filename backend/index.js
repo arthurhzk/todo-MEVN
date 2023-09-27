@@ -1,22 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 const app = express();
 const port = 3000;
-app.use(cors());
+const cors = require("cors");
 app.use(express.json());
-app.get("/", (req, res) => {
-  res.send(`Olá Mundo!`);
-});
+app.use(cors());
 app.listen(3000, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
-
-//Connection to Mongo
 mongoose
   .connect(
-    "mongodb+srv://arthurkunz:TgKdvG04LYWx0R1i@cluster0.kmpdxxa.mongodb.net/mydatabase?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    "mongodb+srv://arthurkunz:tDLlr9ZDunuRG1fU@mevn.ctzfnih.mongodb.net/?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Conectado ao MongoDB");
@@ -24,3 +18,6 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+const TodosRoute = require("./routes/Todos");
+app.use("/todos", TodosRoute);
